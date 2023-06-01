@@ -5,9 +5,9 @@ import com.practice.bank.entity.ClientEntity;
 import com.practice.bank.mapper.ClientEntityMapper;
 import com.practice.bank.mapper.DtoToEntity;
 import com.practice.bank.mapper.EntityToDto;
+import com.practice.bank.repository.AccountRepository;
 import com.practice.bank.repository.ClientRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +15,19 @@ import java.util.UUID;
 
 @Service
 public class ClientService implements BankService<ClientDto> {
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    ClientEntityMapper clientEntityMapper;
+    private final ClientRepository clientRepository;
+    private final ClientEntityMapper clientEntityMapper;
+    private final AccountRepository accountRepository;
+
+    public ClientService(ClientRepository clientRepository, ClientEntityMapper clientEntityMapper, AccountRepository accountRepository) {
+        this.clientRepository = clientRepository;
+        this.clientEntityMapper = clientEntityMapper;
+        this.accountRepository = accountRepository;
+    }
 
     public List<ClientDto> getAllClients(){
         List<ClientEntity> clientEntities = clientRepository.findAll();
-        return EntityToDto.mapToDtoList(clientEntities);
+        return EntityToDto.clientsEntitiesToDtoList(clientEntities);
     }
 
     @Override

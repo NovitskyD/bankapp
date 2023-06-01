@@ -8,6 +8,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -44,4 +45,7 @@ public class ClientEntity {
 
     @Column(name = "password")
     @NonNull private String password;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountEntity> accounts;
 }

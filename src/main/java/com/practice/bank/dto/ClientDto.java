@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,4 +21,5 @@ public class ClientDto {
     @Email(message = "Email should be valid")
     @NonNull private String email;
     @NonNull private String password;
+    private List<AccountDto> accounts;
 }

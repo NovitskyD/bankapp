@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add account</title>
+</head>
+<body>
+<h1>Add account</h1>
+<h2>Client: <span th:text="${account.client.id}"></span></h2>
+<form method="post" th:object="${account}" th:action="@{/accounts}">
+    <input type="hidden" th:field="*{client.id}">
+
+    <label for="accountType">Account Type:</label>
+    <select id="accountType" name="accountType" th:field="*{accountType}">
+        <option value="Savings">Savings</option>
+        <option value="Checking">Checking</option>
+        <option value="Credit">Credit</option>
+    </select>
+    <br>
+
+    <input type="hidden" th:field="*{client.firstName}">
+    <input type="hidden" th:field="*{client.lastName}">
+    <input type="hidden" th:field="*{client.birthDate}">
+    <input type="hidden" th:field="*{client.address}">
+    <input type="hidden" th:field="*{client.phone}">
+    <input type="hidden" th:field="*{client.email}">
+    <input type="hidden" th:field="*{client.password}">
+    <button type="submit">Create Account</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts list</title>
+</head>
+<body>
+<h1>Accounts List</h1>
+<h2>Client: <span th:text="${client.firstName}"></span> <span th:text="${client.lastName}"></span></h2>
+<div th:each="accountType : ${accountsByType.keySet()}">
+    <h3 th:text="${accountType}"></h3>
+    <div th:each="account : ${accountsByType.get(accountType)}">
+        <p>
+            Account number: <span th:text="${account.accountNumber}"></span>
+        </p>
+        <p>
+            Balance: <span th:text="${account.balance}"></span>
+        </p>
+    </div>
+</div>
+</body>
+</html>

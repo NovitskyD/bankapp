@@ -4,6 +4,7 @@ import com.practice.bank.dto.*;
 import com.practice.bank.entity.*;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,20 @@ public class EntityToDto {
                 .email(clientEntity.getEmail())
                 .password(clientEntity.getPassword())
                 .accounts(accountsEntitiesToDtoList(clientEntity.getAccounts()))
+                .build();
+    }
+
+    public static AccountDto accountsEntityToDtoForClients(AccountEntity accountEntity){
+        return AccountDto.builder()
+                .id(accountEntity.getId().toString())
+//                .client(clientsEntityToDto(accountEntity.getClient()))
+                .accountNumber(accountEntity.getAccountNumber())
+                .accountType(accountEntity.getAccountType())
+                .balance(accountEntity.getBalance())
+                .cards(cardsEntitiesToDtoList(accountEntity.getCards()))
+                .loans(loansEntityToDtoList(accountEntity.getLoans()))
+                .sentTransactions(transactionsEntityToDtoList(accountEntity.getSentTransactions()))
+                .receivedTransactions(transactionsEntityToDtoList(accountEntity.getReceivedTransactions()))
                 .build();
     }
 
@@ -39,7 +54,7 @@ public class EntityToDto {
     public static CardDto cardsEntityToDto(CardEntity cardEntity){
         return CardDto.builder()
                 .id(cardEntity.getId().toString())
-                .account(accountsEntityToDto(cardEntity.getAccount()))
+                .account(accountsEntityToDtoForClients(cardEntity.getAccount()))
                 .cardNumber(cardEntity.getCardNumber())
                 .expirationDate(cardEntity.getExpirationDate())
                 .holderName(cardEntity.getHolderName())
@@ -51,7 +66,7 @@ public class EntityToDto {
     public static LoanDto loansEntityToDto(LoanEntity loanEntity){
         return LoanDto.builder()
                 .id(loanEntity.getId().toString())
-                .account(accountsEntityToDto(loanEntity.getAccount()))
+                .account(accountsEntityToDtoForClients(loanEntity.getAccount()))
                 .loanAmount(loanEntity.getLoanAmount())
                 .interestRate(loanEntity.getInterestRate())
                 .termMonths(loanEntity.getTermMonths())
@@ -64,8 +79,8 @@ public class EntityToDto {
     public static TransactionDto transactionsEntityToDto(TransactionEntity transactionEntity){
         return TransactionDto.builder()
                 .id(transactionEntity.getId().toString())
-                .senderAccount(accountsEntityToDto(transactionEntity.getSenderAccount()))
-                .recipientAccount(accountsEntityToDto(transactionEntity.getRecipientAccount()))
+                .senderAccount(accountsEntityToDtoForClients(transactionEntity.getSenderAccount()))
+                .recipientAccount(accountsEntityToDtoForClients(transactionEntity.getRecipientAccount()))
                 .type(transactionEntity.getType())
                 .amount(transactionEntity.getAmount())
                 .currency(transactionEntity.getCurrency())
@@ -78,7 +93,7 @@ public class EntityToDto {
     public static ReportDto reportsEntityToDto(ReportEntity reportEntity){
         return ReportDto.builder()
                 .id(reportEntity.getId().toString())
-                .account(accountsEntityToDto(reportEntity.getAccount()))
+                .account(accountsEntityToDtoForClients(reportEntity.getAccount()))
                 .title(reportEntity.getTitle())
                 .description(reportEntity.getDescription())
                 .createdAt(reportEntity.getCreatedAt())
@@ -87,30 +102,45 @@ public class EntityToDto {
     }
 
     public static List<ClientDto> clientsEntitiesToDtoList(List<ClientEntity> clientEntities){
+        if(clientEntities == null){
+            return new ArrayList<>();
+        }
         return clientEntities.stream()
                 .map(EntityToDto::clientsEntityToDto)
                 .collect(Collectors.toList());
     }
 
     public static List<AccountDto> accountsEntitiesToDtoList(List<AccountEntity> accountEntities){
+        if(accountEntities == null){
+            return new ArrayList<>();
+        }
         return accountEntities.stream()
-                .map(EntityToDto::accountsEntityToDto)
+                .map(EntityToDto::accountsEntityToDtoForClients)
                 .collect(Collectors.toList());
     }
 
     public static List<CardDto> cardsEntitiesToDtoList(List<CardEntity> cardEntities){
+        if(cardEntities == null){
+            return new ArrayList<>();
+        }
         return cardEntities.stream()
                 .map(EntityToDto::cardsEntityToDto)
                 .collect(Collectors.toList());
     }
 
     public static List<LoanDto> loansEntityToDtoList(List<LoanEntity> loanEntities){
+        if(loanEntities == null){
+            return new ArrayList<>();
+        }
         return loanEntities.stream()
                 .map(EntityToDto::loansEntityToDto)
                 .collect(Collectors.toList());
     }
 
     public static List<TransactionDto> transactionsEntityToDtoList(List<TransactionEntity> transactionEntities){
+        if(transactionEntities == null){
+            return new ArrayList<>();
+        }
         return transactionEntities.stream()
                 .map(EntityToDto::transactionsEntityToDto)
                 .collect(Collectors.toList());

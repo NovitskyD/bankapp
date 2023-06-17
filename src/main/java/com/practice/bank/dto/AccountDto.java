@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -12,9 +13,9 @@ import java.util.List;
 public class AccountDto {
     private String id;
     private ClientDto client;
-    @NonNull private String accountNumber;
-    @NonNull private String accountType;
-    @NonNull private BigDecimal balance;
+    private String accountNumber = UUID.randomUUID().toString();
+    private String accountType;
+    private BigDecimal balance = BigDecimal.ZERO;
     private List<CardDto> cards;
     private List<LoanDto> loans;
     private List<TransactionDto> sentTransactions;

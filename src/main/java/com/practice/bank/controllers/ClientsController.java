@@ -1,25 +1,21 @@
 package com.practice.bank.controllers;
 
 import com.practice.bank.dto.ClientDto;
-import com.practice.bank.entity.ClientEntity;
-import com.practice.bank.repository.ClientRepository;
 import com.practice.bank.services.ClientService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @Controller
 @RequestMapping("/clients")
-public class ClientsController {
-    @Autowired
-    private ClientService clientService;
+@RequiredArgsConstructor
+public final class ClientsController {
 
+    private final ClientService clientService;
 
     @GetMapping("/all")
     public String getAllClients(Model model) {

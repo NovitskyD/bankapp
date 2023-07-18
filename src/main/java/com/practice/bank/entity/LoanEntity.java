@@ -20,9 +20,9 @@ public class LoanEntity {
     @UuidGenerator
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    private AccountEntity account;
+    @OneToOne
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
+    private CardEntity card;
 
     @Column(name = "loan_amount")
     @NonNull private BigDecimal loanAmount;

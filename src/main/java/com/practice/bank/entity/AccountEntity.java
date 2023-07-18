@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,18 +29,6 @@ public class AccountEntity {
     @Column(name = "account_type")
     @NonNull private String accountType;
 
-    @Column(name = "balance")
-    @NonNull private BigDecimal balance;
-
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardEntity> cards;
-
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LoanEntity> loans;
-
-    @OneToMany(mappedBy = "senderAccount", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionEntity> sentTransactions;
-
-    @OneToMany(mappedBy = "recipientAccount", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionEntity> receivedTransactions;
 }

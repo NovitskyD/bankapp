@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS accounts (
     client_id UUID,
     account_number VARCHAR NOT NULL,
     account_type VARCHAR NOT NULL,
-    balance NUMERIC NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (client_id) REFERENCES clients (id)
 );

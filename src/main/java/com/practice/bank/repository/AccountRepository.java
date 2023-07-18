@@ -12,6 +12,8 @@ import java.util.UUID;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountEntity, UUID> {
 
-    @Query(value = "SELECT * FROM accounts acc WHERE acc.client_id = :id", nativeQuery = true)
-    List<AccountEntity> findByClientId(@Param("id") UUID clientId);
+    @Query("SELECT acc FROM AccountEntity acc WHERE acc.client.id = :clientId")
+    List<AccountEntity> findByClientId(@Param("clientId") UUID clientId);
+
+    boolean existsByAccountNumber(String accountNumber);
 }

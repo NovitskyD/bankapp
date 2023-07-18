@@ -6,6 +6,10 @@ CREATE TABLE IF NOT EXISTS cards (
      holder_name VARCHAR,
      cvv VARCHAR,
      status VARCHAR,
+     limit_id UUID,
+     payment_system_id UUID,
      PRIMARY KEY (id),
-     FOREIGN KEY (account_id) REFERENCES accounts (id)
+     FOREIGN KEY (account_id) REFERENCES accounts (id),
+     FOREIGN KEY (limit_id) REFERENCES limits (id),
+     FOREIGN KEY (payment_system_id) REFERENCES payment_systems (id)
 );

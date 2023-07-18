@@ -2,6 +2,7 @@ package com.practice.bank.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -11,9 +12,14 @@ import java.time.LocalDate;
 public class CardDto {
     private String id;
     private AccountDto account;
-    @NonNull private String cardNumber;
+    private LoanDto loan;
+    private String cardNumber;
     private LocalDate expirationDate;
     private String holderName;
     private String cvv;
+    private BigDecimal balance;
+    private CurrencyDto currency;
     private String status;
+    private LimitDto limit;
+    private PaymentSystemDto paymentSystem;
 }

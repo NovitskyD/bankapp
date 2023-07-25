@@ -1,8 +1,9 @@
 package com.practice.bank.dto;
 
+import com.practice.bank.enums.Role;
+import com.practice.bank.enums.Status;
 import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,5 +22,7 @@ public class ClientDto {
     @Email(message = "Email should be valid")
     @NonNull private String email;
     @NonNull private String password;
+    private Role role;
+    private Status status;
     private List<AccountDto> accounts;
 }

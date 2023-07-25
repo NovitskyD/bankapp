@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS clients (
     address VARCHAR NOT NULL,
     phone VARCHAR NOT NULL,
     email VARCHAR,
-    password VARCHAR NOT NULL,
-    PRIMARY KEY (id)
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR DEFAULT 'USER',
+    status VARCHAR DEFAULT 'ACTIVE',
+    PRIMARY KEY (id),
+    UNIQUE(email)
 );

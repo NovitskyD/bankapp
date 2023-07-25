@@ -4,6 +4,7 @@ import com.practice.bank.dto.*;
 import com.practice.bank.services.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/accounts/cards")
 @RequiredArgsConstructor
+@Slf4j
 public class CardsController {
     private final CardService cardService;
     private final PaymentSystemService paymentSystemService;
@@ -44,7 +46,7 @@ public class CardsController {
         if(result.hasErrors()){
             return "cards/create_card_form";
         }
-        System.out.println(cardDto);
+        log.info("CardDto: {}", cardDto);
         if("Credit".equals(cardDto.getAccount().getAccountType()) && loanDto != null) {
             cardDto.setLoan(loanDto);
         }

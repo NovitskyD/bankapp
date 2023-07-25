@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction</title>
+</head>
+<body>
+    <form method="post" th:object="${transactionForm}" th:action="@{/accounts/cards/transaction}">
+        <div id="fillFieldMode">
+            <label for="senderCardNumber">Sender Card Number:</label>
+            <input type="text" id="senderCardNumber" name="senderCardNumber" th:field="*{senderCardNumber}">
+
+            <label for="senderCvv">Sender CVV:</label>
+            <input type="text" id="senderCvv" name="senderCvv" th:field="*{senderCvv}" />
+
+            <label for="senderExpirationDate">Sender Expiration Date:</label>
+            <input type="date" id="senderExpirationDate" name="senderExpirationDate" th:field="*{senderExpirationDate}" />
+        </div>
+
+        <div id="selectCardMode" style="display: none;">
+            <select id="selectSenderCard" name="selectSenderCard" onchange="fillFieldsFromSelectedCard()">
+                <option th:each="card : ${cardSender}" th:value="${card.id}">
+                    Card Number: <span th:text="${card.cardNumber}"></span>
+                    Cvv: <span th:text="${card.cvv}"></span>
+                    Expiration Date: <span th:text="${card.expirationDate}"></span>
+                </option>
+            </select>
+        </div>
+
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" th:field="*{amount}" required/>
+
+        <label for="recipientCardNumber">Recipient Card Number:</label>
+        <input type="text" id="recipientCardNumber" name="recipientCardNumber" th:field="*{recipientCardNumber}"/>
+
+        <button type="button" id="switchModeButton" onclick="switchMode()">Switch Mode</button>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<script th:src="@{/js/transaction.js}"></script>
+</html>

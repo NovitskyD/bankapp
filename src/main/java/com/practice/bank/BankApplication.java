@@ -2,12 +2,13 @@ package com.practice.bank;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
+@EnableScheduling
 @RequestMapping("/")
 @Controller
 public class BankApplication {
@@ -18,6 +19,6 @@ public class BankApplication {
 
 	@GetMapping
 	public String hello(){
-		return "redirect:/clients/create";
+		return "hello";
 	}
 }

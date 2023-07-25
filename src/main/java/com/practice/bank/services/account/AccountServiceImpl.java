@@ -1,4 +1,4 @@
-package com.practice.bank.services;
+package com.practice.bank.services.account;
 
 import com.practice.bank.dto.AccountDto;
 import com.practice.bank.dto.ClientDto;
@@ -11,6 +11,7 @@ import com.practice.bank.mapper.DtoToEntity;
 import com.practice.bank.mapper.EntityToDto;
 import com.practice.bank.repository.AccountRepository;
 import com.practice.bank.repository.ClientRepository;
+import com.practice.bank.services.client.ClientService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

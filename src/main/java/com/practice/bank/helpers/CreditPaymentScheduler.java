@@ -1,6 +1,6 @@
 package com.practice.bank.helpers;
 
-import com.practice.bank.services.CreditCardService;
+import com.practice.bank.services.creditCard.CreditCardService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

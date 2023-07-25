@@ -1,4 +1,4 @@
-package com.practice.bank.services;
+package com.practice.bank.services.card;
 
 import com.practice.bank.Exceptions.CardNotFoundException;
 import com.practice.bank.dto.AccountDto;
@@ -14,6 +14,11 @@ import com.practice.bank.mapper.DtoToEntity;
 import com.practice.bank.mapper.EntityMapper;
 import com.practice.bank.mapper.EntityToDto;
 import com.practice.bank.repository.CardRepository;
+import com.practice.bank.services.currency.CurrencyService;
+import com.practice.bank.services.limit.LimitService;
+import com.practice.bank.services.loan.LoanService;
+import com.practice.bank.services.paymentSystem.PaymentSystemService;
+import com.practice.bank.services.account.AccountService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +34,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CardServiceImpl implements CardService{
+public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
     private final AccountService accountService;
     private final CurrencyService currencyService;

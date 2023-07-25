@@ -1,7 +1,7 @@
 package com.practice.bank.controllers;
 
 import com.practice.bank.dto.ClientDto;
-import com.practice.bank.services.ClientService;
+import com.practice.bank.services.client.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

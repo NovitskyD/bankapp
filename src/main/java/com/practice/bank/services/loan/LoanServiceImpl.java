@@ -1,9 +1,10 @@
-package com.practice.bank.services;
+package com.practice.bank.services.loan;
 
 import com.practice.bank.dto.LoanDto;
 import com.practice.bank.entity.LoanEntity;
 import com.practice.bank.mapper.EntityToDto;
 import com.practice.bank.repository.LoanRepository;
+import com.practice.bank.services.loan.LoanService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class LoanServiceImpl implements LoanService{
+public class LoanServiceImpl implements LoanService {
     private final LoanRepository loanRepository;
     @Override
     public LoanDto getDataById(String id) {

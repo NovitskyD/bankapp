@@ -1,8 +1,10 @@
-package com.practice.bank.services;
+package com.practice.bank.services.creditCard;
 
 import com.practice.bank.dto.PaymentDto;
 import com.practice.bank.entity.CardEntity;
 import com.practice.bank.repository.CardRepository;
+import com.practice.bank.services.loan.LoanService;
+import com.practice.bank.services.payment.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CreditCardServiceImpl implements CreditCardService{
+public class CreditCardServiceImpl implements CreditCardService {
     private final CardRepository cardRepository;
     private final LoanService loanService;
     private final PaymentService paymentService;

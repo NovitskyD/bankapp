@@ -2,8 +2,8 @@ package com.practice.bank.controllers;
 
 import com.practice.bank.dto.AccountDto;
 import com.practice.bank.dto.ClientDto;
-import com.practice.bank.services.AccountService;
-import com.practice.bank.services.ClientService;
+import com.practice.bank.services.account.AccountService;
+import com.practice.bank.services.client.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +27,11 @@ public final class AccountController {
     @GetMapping("/{id}")
     public String getAccountsByIdClient(@PathVariable("id") String id, Model model){
         ClientDto clientDto = clientService.getDataById(id);
+        model.addAttribute("client", clientDto);
         List<AccountDto> accounts = accountService.getAccountsByClientId(id);
         Map<String, List<AccountDto>> accountsByType = accounts.stream()
                 .collect(Collectors.groupingBy(AccountDto::getAccountType));
 
-        model.addAttribute("client", clientDto);
         model.addAttribute("accountsByType", accountsByType);
 
         //logging

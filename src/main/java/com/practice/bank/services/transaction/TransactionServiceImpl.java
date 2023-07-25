@@ -1,10 +1,13 @@
-package com.practice.bank.services;
+package com.practice.bank.services.transaction;
 
 import com.practice.bank.dto.CardDto;
 import com.practice.bank.dto.TransactionDto;
 import com.practice.bank.dto.TransactionForm;
 import com.practice.bank.mapper.DtoToEntity;
 import com.practice.bank.repository.TransactionRepository;
+import com.practice.bank.services.card.CardService;
+import com.practice.bank.services.currency.CurrencyService;
+import com.practice.bank.services.transaction.TransactionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,7 @@ import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
-public class TransactionServiceImpl implements TransactionService{
+public class TransactionServiceImpl implements TransactionService {
     private final CardService cardService;
     private final CurrencyService currencyService;
     private final TransactionRepository transactionRepository;

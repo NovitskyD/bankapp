@@ -1,4 +1,4 @@
-package com.practice.bank.services;
+package com.practice.bank.services.currency;
 
 import com.practice.bank.Exceptions.ExchangeRateNotFoundException;
 import com.practice.bank.dto.CurrencyDto;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CurrencyServiceImpl implements CurrencyService{
+public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyRepository currencyRepository;
     private final CurrencyRateRepository currencyRateRepository;
 

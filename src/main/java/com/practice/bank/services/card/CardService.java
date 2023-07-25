@@ -1,13 +1,13 @@
-package com.practice.bank.services;
+package com.practice.bank.services.card;
 
 import com.practice.bank.dto.CardDto;
 import com.practice.bank.dto.TopUpDto;
-import com.practice.bank.entity.CardEntity;
+import com.practice.bank.services.BankService;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface CardService extends BankService<CardDto>{
+public interface CardService extends BankService<CardDto> {
     List<CardDto> getCardsByAccountId(String accountId);
     CardDto createCardDtoForForm(String accountId);
     void topUpBalance(TopUpDto topUpDto);

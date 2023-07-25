@@ -1,4 +1,4 @@
-package com.practice.bank.services;
+package com.practice.bank.services.client;
 
 import com.practice.bank.dto.ClientDto;
 import com.practice.bank.entity.ClientEntity;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ClientServiceImpl implements ClientService{
+public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final EntityMapper clientEntityMapper;
     private final AccountRepository accountRepository;

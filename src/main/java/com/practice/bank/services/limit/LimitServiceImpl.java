@@ -1,9 +1,10 @@
-package com.practice.bank.services;
+package com.practice.bank.services.limit;
 
 import com.practice.bank.dto.LimitDto;
 import com.practice.bank.entity.LimitEntity;
 import com.practice.bank.mapper.EntityToDto;
 import com.practice.bank.repository.LimitRepository;
+import com.practice.bank.services.limit.LimitService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class LimitServiceImpl implements LimitService{
+public class LimitServiceImpl implements LimitService {
     private final LimitRepository limitRepository;
     @Override
     public LimitDto getDataById(String id) {

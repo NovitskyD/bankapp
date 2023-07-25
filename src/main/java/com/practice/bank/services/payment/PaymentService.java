@@ -1,4 +1,4 @@
-package com.practice.bank.services;
+package com.practice.bank.services.payment;
 
 import com.practice.bank.dto.PaymentDto;
 

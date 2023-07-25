@@ -1,9 +1,10 @@
-package com.practice.bank.services;
+package com.practice.bank.services.paymentSystem;
 
 import com.practice.bank.dto.PaymentSystemDto;
 import com.practice.bank.entity.PaymentSystemEntity;
 import com.practice.bank.mapper.EntityToDto;
 import com.practice.bank.repository.PaymentSystemRepository;
+import com.practice.bank.services.paymentSystem.PaymentSystemService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentSystemServiceImpl implements PaymentSystemService{
+public class PaymentSystemServiceImpl implements PaymentSystemService {
     private final PaymentSystemRepository paymentSystemRepository;
     @Override
     public PaymentSystemDto getDataById(String id) {

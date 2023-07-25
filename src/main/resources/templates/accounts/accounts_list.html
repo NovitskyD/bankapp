@@ -3,20 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Accounts list</title>
+    <link rel="stylesheet" th:href="@{/css/cards.css}"/>
 </head>
 <body>
 <h1>Accounts List</h1>
 <h2>Client: <span th:text="${client.firstName}"></span> <span th:text="${client.lastName}"></span></h2>
 <div th:each="accountType : ${accountsByType.keySet()}">
     <h3 th:text="${accountType}"></h3>
-    <div th:each="account : ${accountsByType.get(accountType)}">
-        <p>
-            Account number: <span th:text="${account.accountNumber}"></span>
-        </p>
-        <p>
-            Balance: <span th:text="${account.balance}"></span>
-        </p>
+    <div class="account-wrapper">
+        <div th:each="account : ${accountsByType.get(accountType)}">
+            <div class="account">
+                <p>
+                    Account number: <span th:text="${account.accountNumber}"></span>
+                </p>
+
+                <div class="card-carousel">
+                    <div class="card-wrapper">
+                        <div class="card flip-card" th:each="card : ${account.cards}">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-paymentSystem" th:text="${card.paymentSystem.name}"></div>
+                                    <div class="card-number" th:text="${card.cardNumber}"></div>
+                                    <div class="card-holder" th:text="${card.holderName}"></div>
+                                    <div class="card-expiration" th:text="${card.expirationDate}"></div>
+                                    <div th:if="${account.accountType == 'Credit'}">
+                                        <div class="card-balance"
+                                             th:text="${card.balance} + '/' + ${card.loan.loanAmount} + ' '
+                                         + ${card.currency.code}"></div>
+                                    </div>
+                                    <div th:if="${account.accountType != 'Credit'}">
+                                        <div class="card-balance"
+                                             th:text="${card.balance} + ' ' + ${card.currency.code}"></div>
+                                    </div>
+                                    <div class="card-limit"
+                                         th:text="${card.limit.dailyLimit} + '/' + ${card.limit.monthlyLimit}"></div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="card-cvv" th:text="${card.cvv}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="prev-button">&lt;</button>
+                        <button class="next-button">&gt;</button>
+                    </div>
+                </div>
+
+                <a th:href="@{/accounts/cards/{id}/create(id=${account.id})}">Create card</a>
+                <a th:href="@{/accounts/cards/top-up}">Top up balance</a>
+            </div>
+        </div>
     </div>
 </div>
+<script th:src="@{/js/cards.js}"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+

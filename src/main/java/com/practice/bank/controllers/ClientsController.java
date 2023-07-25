@@ -4,10 +4,13 @@ import com.practice.bank.dto.ClientDto;
 import com.practice.bank.services.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @Controller
@@ -18,30 +21,21 @@ public final class ClientsController {
     private final ClientService clientService;
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('all-client-profile:read')")
     public String getAllClients(Model model) {
         model.addAttribute("clients", clientService.getAllClients());
         return "clients/clients_list";
     }
 
-    @GetMapping("/{id}")
-    public String getClientById(@PathVariable("id") String id, Model model) {
-        ClientDto clientDto = clientService.getDataById(id);
+    @GetMapping("/profile")
+    public String getClientById(Principal principal, Model model) {
+        ClientDto clientDto = clientService.getDataByPrincipal(principal);
         model.addAttribute("client", clientDto);
         return "clients/client_display";
     }
 
-    @GetMapping("/create")
-    public String showCreateClientForm(@ModelAttribute("client") ClientDto clientDto) {
-        return "clients/add_client_form";
-    }
-
-    @PostMapping()
-    public String createClient(@ModelAttribute("client") ClientDto clientDto) {
-        clientService.insertData(clientDto);
-        return "redirect:/clients/all";
-    }
-
     @GetMapping("/{id}/edit")
+    @PreAuthorize("hasAuthority('client-profile:write')")
     public String edit(@PathVariable("id") String id,
                        Model model) {
 

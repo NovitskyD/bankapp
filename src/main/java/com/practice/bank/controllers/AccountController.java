@@ -6,18 +6,20 @@ import com.practice.bank.services.AccountService;
 import com.practice.bank.services.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/accounts")
 @RequiredArgsConstructor
+@Slf4j
 public final class AccountController {
     private final AccountService accountService;
     private final ClientService clientService;
@@ -26,28 +28,28 @@ public final class AccountController {
     public String getAccountsByIdClient(@PathVariable("id") String id, Model model){
         ClientDto clientDto = clientService.getDataById(id);
         List<AccountDto> accounts = accountService.getAccountsByClientId(id);
-        Set<String> accountNumbers = new HashSet<>();
-        accounts.removeIf(account -> !accountNumbers.add(account.getAccountNumber()));
         Map<String, List<AccountDto>> accountsByType = accounts.stream()
                 .collect(Collectors.groupingBy(AccountDto::getAccountType));
 
         model.addAttribute("client", clientDto);
         model.addAttribute("accountsByType", accountsByType);
 
+        //logging
+        accounts.stream()
+                .flatMap(account -> account.getCards().stream())
+                .forEach(card -> log.info("Card: {}", card));
+        log.info("AccountsByType: {}", accountsByType);
+
         return "accounts/accounts_list";
     }
 
     @GetMapping("{id}/create")
-    public String showCreateAccountForm(@PathVariable("id") String id, Model model){
-        ClientDto clientDto = clientService.getDataById(id);
-        String accountNumber = UUID.randomUUID().toString();
-        BigDecimal balance = BigDecimal.ZERO;
-        AccountDto accountDto = AccountDto.builder()
-                .client(clientDto)
-                .accountNumber(accountNumber)
-                .balance(balance)
-                .build();
+    public String showCreateAccountForm(@PathVariable("id") String clientId, Model model){
+        AccountDto accountDto = accountService.createAccountDtoForForm(clientId);
+        ClientDto clientDto = clientService.getDataById(clientId);
+
         model.addAttribute("account", accountDto);
+        model.addAttribute("client", clientDto);
         return "accounts/add_account_form";
     }
 
@@ -57,9 +59,10 @@ public final class AccountController {
         if(result.hasErrors()){
             return "accounts/add_account_form";
         }
-        System.out.println("client: " + accountDto.getClient());
-        System.out.println("account: " + accountDto);
+        log.info("Client: {}", accountDto.getClient());
+        log.info("Account: {}", accountDto);
+
         accountService.insertData(accountDto);
-        return "redirect:/clients/all";
+        return "redirect:/clients/" + accountDto.getClient().getId();
     }
 }

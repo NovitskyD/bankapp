@@ -20,12 +20,12 @@ public class TransactionEntity {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "sender_account_id", referencedColumnName = "id")
-    private AccountEntity senderAccount;
+    @JoinColumn(name = "sender_card_id", referencedColumnName = "id")
+    private CardEntity senderCard;
 
     @ManyToOne
-    @JoinColumn(name = "recipient_account_id", referencedColumnName = "id")
-    private AccountEntity recipientAccount;
+    @JoinColumn(name = "recipient_card_id", referencedColumnName = "id")
+    private CardEntity recipientCard;
 
     @Column(name = "type")
     @NonNull private String type;
@@ -33,8 +33,9 @@ public class TransactionEntity {
     @Column(name = "amount")
     @NonNull private BigDecimal amount;
 
-    @Column(name = "currency")
-    @NonNull private String currency;
+    @ManyToOne
+    @JoinColumn(name = "currency_id", referencedColumnName = "id")
+    @NonNull private CurrencyEntity currency;
 
     @Column(name = "description")
     private String description;

@@ -43,7 +43,6 @@ public class CreditCardServiceImpl implements CreditCardService{
         BigDecimal interest = amount.multiply(interestRate.divide(BigDecimal.valueOf(100)));
 
         interest = interest.setScale(2, RoundingMode.HALF_UP);
-
         return interest;
     }
 }

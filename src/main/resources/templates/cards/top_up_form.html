@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top up</title>
+</head>
+<body>
+<form method="post" th:object="${topUpDto}" th:action="@{/accounts/cards/top-up}">
+  <div>
+    <label for="cardNumber">Card Number:</label>
+    <input type="text" id="cardNumber" th:field="*{cardNumber}" required/>
+  </div>
+  <div>
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" th:field="*{amount}" required/>
+  </div>
+  <label for="currencies">Currency:</label>
+  <select id="currencies" name="currencies" th:field="*{currency.id}">
+    <option th:each="currency : ${currencies}" th:value="${currency.id}" th:text="${currency.code}"></option>
+  </select>
+  <br>
+  <button type="submit">Top Up</button>
+</form>
+</body>
+</html>

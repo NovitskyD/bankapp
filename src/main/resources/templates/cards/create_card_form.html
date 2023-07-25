@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Card</title>
+</head>
+<body>
+<form method="post" th:object="${card}" th:action="@{/accounts/cards}">
+    <input type="hidden" th:field="*{cardNumber}">
+    <input type="hidden" th:field="*{cvv}">
+    <input type="hidden" th:field="*{balance}">
+    <input type="hidden" th:field="*{holderName}">
+    <input type="hidden" th:field="*{expirationDate}">
+    <input type="hidden" th:field="*{account.id}">
+    <input type="hidden" th:field="*{account.accountType}">
+    <input type="hidden" th:field="*{account.accountNumber}">
+
+    <label for="paymentSystem">paymentSystem</label>
+    <select id="paymentSystem" name="paymentSystem" th:field="*{paymentSystem.id}">
+        <option th:each="paymentSystem : ${paymentSystems}" th:value="${paymentSystem.id}" th:text="${paymentSystem.name}"></option>
+    </select>
+    <br>
+
+    <label for="currencies">Currency:</label>
+    <select id="currencies" name="currencies" th:field="*{currency.id}">
+        <option th:each="currency : ${currencies}" th:value="${currency.id}" th:text="${currency.code}"></option>
+    </select>
+    <br>
+
+    <label for="limit">Limit:</label>
+    <select id="limit" name="limit" th:field="*{limit.id}">
+        <option th:each="limit : ${limits}" th:value="${limit.id}" th:text="${limit.dailyLimit} + ' - ' + ${limit.monthlyLimit}"></option>
+    </select>
+    <br>
+
+    <div th:if="${card.account.accountType == 'Credit'}" id="creditCardFields" >
+        <input type="hidden" th:field="${loan.status}">
+        <input type="hidden" th:field="${loan.startDate}">
+        <h3>Credit Card:</h3>
+        <label for="loanAmount">loanAmount</label>
+        <select id="loanAmount" name="loanAmount" th:field="${loan.loanAmount}">
+            <option value="10000">10,000</option>
+            <option value="50000">50,000</option>
+            <option value="100000">100,000</option>
+        </select>
+        <label for="termMonths">termMonths</label>
+        <select id="termMonths" name="termMonths" th:field="${loan.termMonths}">
+            <option value="6">6 month</option>
+            <option value="12">12 month</option>
+            <option value="24">24 month</option>
+        </select>
+        <br>
+        <input type="hidden" th:field="${loan.interestRate}"
+               th:value="${loan.loanAmount == '10000' ? '0.1' : (loan.loanAmount == '50000' ? '0.15' : '0.2')}">
+    </div>
+
+    <input type="hidden" th:field="*{paymentSystem.name}">
+
+    <input type="hidden" th:field="*{account.client.id}">
+    <input type="hidden" th:field="*{account.client.firstName}">
+    <input type="hidden" th:field="*{account.client.lastName}">
+    <input type="hidden" th:field="*{account.client.birthDate}">
+    <input type="hidden" th:field="*{account.client.address}">
+    <input type="hidden" th:field="*{account.client.phone}">
+    <input type="hidden" th:field="*{account.client.email}">
+    <input type="hidden" th:field="*{account.client.password}">
+
+    <button type="submit">Create Card</button>
+</form>
+</body>
+</html>
